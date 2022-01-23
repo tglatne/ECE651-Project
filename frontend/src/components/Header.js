@@ -1,25 +1,60 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
+import uuid from 'react-uuid';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+import CategoryService from '../api/category/CategoryService';
 
 
 function Header() {
+
+  const [categories, setCategories] = useState([])
+  useEffect(() => {
+      CategoryService.getAllCategories()
+      .then(
+          response => setCategories(response.data)
+      )
+  });
+
   return (
     <header>
         <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
             <Container>
-                <Navbar.Brand href="/">SmartWalletSaver</Navbar.Brand>
+
+              <LinkContainer to="/">
+                <Navbar.Brand>SmartWalletSaver</Navbar.Brand>
+              </LinkContainer>
+
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                    <Nav.Link href="#home"><i className='fas fa-shopping-cart'></i>Cart</Nav.Link>
-                    <Nav.Link href="#link"><i className='fas fa-user'></i>Login</Nav.Link>
-                    <Nav.Link href="#products">Products</Nav.Link>
+
+                  <LinkContainer to="/cart">
+                    <Nav.Link><i className='fas fa-shopping-cart'></i>Cart</Nav.Link>
+                  </LinkContainer>
+
+                  <LinkContainer to="/login">
+                    <Nav.Link><i className='fas fa-user'></i>Login</Nav.Link>
+                  </LinkContainer>
+                    
+                  <LinkContainer to="/products"> 
+                    <Nav.Link>Products</Nav.Link>
+                  </LinkContainer>
+
                         <NavDropdown title="Categories" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="/catergories/bakery">Bakery</NavDropdown.Item>
-                        <NavDropdown.Item href="/catergories/fruits">Fruits</NavDropdown.Item>
-                        <NavDropdown.Item href="/catergories/meats">Meats</NavDropdown.Item>
+
+                        {
+                            categories.map (
+                                category => (
+                                  <LinkContainer key={uuid()} to={`/products/catergories/${category}`}>
+                                    <NavDropdown.Item>{category}</NavDropdown.Item>
+                                  </LinkContainer>                      
+                                )
+                            )
+                        }
                         <NavDropdown.Divider />
-                        <NavDropdown.Item href="/catergories">All Catergories</NavDropdown.Item>
+                        <LinkContainer to="/products/catergories"> 
+                          <NavDropdown.Item href="">All Catergories</NavDropdown.Item>
+                        </LinkContainer>
                         </NavDropdown>
                 </Nav>
                 </Navbar.Collapse>
