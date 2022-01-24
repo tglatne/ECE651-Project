@@ -3,7 +3,7 @@ import ProductService from '../api/product/ProductService';
 import Product from '../components/Product';
 import {Row, Col} from 'react-bootstrap';
 
-function ProductsScreen() {
+function HomeScreen() {
 
     const [products, setProducts] = useState([])
     useEffect(() => {
@@ -31,4 +31,4 @@ function ProductsScreen() {
 }
 
 
-export default ProductsScreen;
+export default HomeScreen;
