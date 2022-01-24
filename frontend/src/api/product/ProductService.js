@@ -6,8 +6,8 @@ class ProductService {
         return axios.get(`https://fakestoreapi.com/products`)
     }
 
-    deleteProduct(id) {
-        return axios.delete(`https://fakestoreapi.com/products/${id}`)
+    getProduct(id) {
+        return axios.get(`https://fakestoreapi.com/products/${id}`)
     }
 
 
