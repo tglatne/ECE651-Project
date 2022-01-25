@@ -10,7 +10,7 @@ function Header() {
     CategoryService.getAllCategories().then((response) =>
       setCategories(response.data)
     );
-  });
+  }, []);
 
   return (
     <header>
@@ -43,7 +43,7 @@ function Header() {
                 {categories.map((category) => (
                   <LinkContainer
                     key={uuid()}
-                    to={`/products/catergories/${category}`}
+                    to={`/products/categories/${category}`}
                   >
                     <NavDropdown.Item>{category}</NavDropdown.Item>
                   </LinkContainer>

@@ -8,7 +8,7 @@ class CategoryService {
 
 
     getCategory(category) {
-        return axios.get(`https://fakestoreapi.com/products/categories${category}`)
+        return axios.get(`https://fakestoreapi.com/products/category/${category}`)
     }
 
 
