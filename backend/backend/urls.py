@@ -1,13 +1,13 @@
 import sys
 from django.contrib import admin
 from django.urls import path, include
-
-
-# router = routers.DefaultRouter()
-# router.register(r'product', views.ProductView, 'product')
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('product.urls')),
 
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT) # for the images
