@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { Row, Col, Image, ListGroup, Button, Card } from "react-bootstrap";
@@ -9,6 +9,8 @@ import Message from "../components/Message";
 function ProductScreen() {
   const { id } = useParams();
 
+  const [qty, setQty] = useState(0);
+
   const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.productDetails);
   const { product, loading, error } = productDetails;
@@ -16,6 +18,14 @@ function ProductScreen() {
   useEffect(() => {
     dispatch(listProductDetails(id));
   }, [dispatch]);
+
+  const handleIncrement = () => {
+    setQty((prevQty) => prevQty + 1);
+  };
+
+  const handleDecrement = () => {
+    setQty((prevQty) => (prevQty > 1 ? prevQty - 1 : 0));
+  };
 
   return (
     <div>
@@ -87,6 +97,21 @@ function ProductScreen() {
                     <Col>
                       <strong>${product.price}</strong>
                     </Col>
+                  </Row>
+                </ListGroup.Item>
+
+                <ListGroup.Item className="mt-3">
+                  <Row lg={5}>
+                    <Col className="my-2">Qty:</Col>
+                    <Col><Button variant="primary" size="sm" onClick={handleDecrement}>-</Button></Col>
+                    <Col><h5>{qty}</h5></Col>
+                    <Col><Button variant="primary" size="sm" onClick={handleIncrement}>+</Button></Col>
+                    <Col><Button variant="primary" size="sm" onClick={() => setQty(0)}>Reset</Button></Col>
+                   
+                    {/* <Col className="my-2">{qty}</Col>
+                    <Col><Button variant="primary" size="sm" onClick={handleIncrement}>+</Button></Col>
+                    <Col><Button variant="primary" size="sm" onClick={() => setQty(0)}>Reset</Button></Col> */}
+                    {/* <button onClick={() => setCount(0)}>Reset</button> */}
                   </Row>
                 </ListGroup.Item>
 
