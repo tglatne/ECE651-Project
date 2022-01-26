@@ -16,7 +16,7 @@ export default class ConnectorApp extends Component {
 
     async componentDidMount() {
         try {
-          const res = await fetch('http://localhost:8000/api/product/');
+          const res = await fetch('/api/products/');
           const productlist = await res.json();
           this.setState({
             productlist

@@ -2,7 +2,7 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 import time
 
-def webscrap:
+def webscrap():
     options = webdriver.ChromeOptions()
     options.add_argument("--enable-javascript")
     driver = webdriver.Chrome('chromedriver', options=options)
