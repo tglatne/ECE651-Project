@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Product from "../components/Product";
 import Loader from "../components/Loader";
@@ -18,7 +18,7 @@ function HomeScreen() {
   return (
     <div className="mt-4">
       {loading ? (
-        <Loader />
+        <Loader/>
       ) : error ? (
         <Message variant='danger'>{error}</Message>
       ) : (

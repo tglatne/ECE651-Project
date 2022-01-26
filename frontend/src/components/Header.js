@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import uuid from 'react-uuid';
+import { useDispatch, useSelector } from "react-redux";
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import CategoryService from '../api/category/CategoryService';
+import { listCategories } from "../actionCreators/categoryActionCreators";
 
 function Header() {
-  const [categories, setCategories] = useState([]);
+
+  const dispatch = useDispatch();
+  const categoryList = useSelector((state) => state.categoryList);
+  const { categories } = categoryList;
+
   useEffect(() => {
-    CategoryService.getAllCategories().then((response) =>
-      setCategories(response.data)
-    );
-  }, []);
+    dispatch(listCategories());
+  }, [dispatch]);
 
   return (
     <header>
