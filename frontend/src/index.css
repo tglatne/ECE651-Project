@@ -15,3 +15,8 @@ code {
 main {
   min-height: 80vh;
 }
+
+.adjust-btn {
+  border-width: 0px;
+  background-color: white;
+}
