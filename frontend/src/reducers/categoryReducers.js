@@ -23,7 +23,7 @@ export const categoryListReducers = (state = { categories: [] }, action) => {
 export const categoryDetailsReducers = (state = { products: [] }, action) => {
   switch (action.type) {
     case CATEGORY_DETAIL_REQUEST:
-      return { loading: true, ...state };
+      return { loading: true };
     case CATEGORY_DETAIL_SUCCESS:
       return { loading: false, products: action.payload };
     case CATEGORY_DETAIL_FAIL:
