@@ -113,7 +113,6 @@ function ProductScreen() {
                     <Col className='mt-1'>
                       <label>Qty:</label>
                     </Col>
-
                     <Col className='mt-1'>
                       <Button
                         bsPrefix='adjust-btn'

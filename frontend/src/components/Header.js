@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import uuid from 'react-uuid';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { listCategories } from "../actionCreators/categoryActionCreators";
+import { listCategories } from '../actionCreators/categoryActionCreators';
 
 function Header() {
-
   const dispatch = useDispatch();
   const categoryList = useSelector((state) => state.categoryList);
   const { categories } = categoryList;
@@ -42,7 +41,11 @@ function Header() {
                 <Nav.Link>Products</Nav.Link>
               </LinkContainer>
 
-              <NavDropdown title='Categories' id='basic-nav-dropdown'>
+              <NavDropdown
+                title='Categories'
+                id='basic-nav-dropdown'
+                menuVariant='dark'
+              >
                 {categories.map((category) => (
                   <LinkContainer
                     key={uuid()}
