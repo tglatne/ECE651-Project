@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import {
   Row,
   Col,
@@ -16,6 +16,8 @@ import Message from '../components/Message';
 
 function ProductScreen() {
   const { id } = useParams();
+  
+  const navigate = useNavigate();
 
   const [qty, setQty] = useState(0);
 
@@ -25,7 +27,7 @@ function ProductScreen() {
 
   useEffect(() => {
     dispatch(listProductDetails(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   const handleIncrement = () => {
     setQty((prevQty) => prevQty + 1);
@@ -34,6 +36,12 @@ function ProductScreen() {
   const handleDecrement = () => {
     setQty((prevQty) => (prevQty > 1 ? prevQty - 1 : 0));
   };
+
+  const addToCartHandler = () => {
+    navigate(`/cart/${id}?qty=${qty}`)
+
+  }
+
 
   return (
     <div>
@@ -155,7 +163,7 @@ function ProductScreen() {
                 </ListGroup.Item>
 
                 <ListGroup.Item className='my-3 d-grid'>
-                  <Button className='btn-block' type='button'>
+                  <Button className='btn-block' type='button' onClick={addToCartHandler}>
                     Add To Cart
                   </Button>
                 </ListGroup.Item>

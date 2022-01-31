@@ -7,7 +7,7 @@ import {
   CATEGORY_DETAIL_FAIL,
 } from "../constants/categoryConstants";
 
-export const categoryListReducers = (state = { categories: [] }, action) => {
+export const categoryListReducer = (state = { categories: [] }, action) => {
   switch (action.type) {
     case CATEGORY_LIST_REQUEST:
       return { loading: true, categories: [] };
@@ -20,7 +20,7 @@ export const categoryListReducers = (state = { categories: [] }, action) => {
   }
 };
 
-export const categoryDetailsReducers = (state = { products: [] }, action) => {
+export const categoryDetailsReducer = (state = { products: [] }, action) => {
   switch (action.type) {
     case CATEGORY_DETAIL_REQUEST:
       return { loading: true };
