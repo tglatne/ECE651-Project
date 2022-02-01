@@ -1,6 +1,6 @@
-from .serializers import ProductSerializer
+from .serializers import *
 from rest_framework import viewsets
-from .models import Product
+from .models import *
 from selenium import webdriver
 from bs4 import BeautifulSoup
 import time
@@ -29,6 +29,21 @@ def getProduct(request, pk):
     product = Product.objects.get(pk = pk)
     serializer = ProductSerializer(product, many= False)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def getCategories(request):
+    category = Category.objects.all()
+    serializer = CategorySerializer(category, many = True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def getCategory(request, pk):
+    category = Product.objects.filter(category_id = pk)
+    serializer = ProductSerializer(category, many = True)
+    return Response(serializer.data)
+
+
 # class ProductView(viewsets.ModelViewSet):
 #     options = webdriver.ChromeOptions()
 #     options.add_argument("--enable-javascript")
