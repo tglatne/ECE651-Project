@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Link,
   useParams,
-  useNavigate,
   useSearchParams,
 } from "react-router-dom";
 import {
