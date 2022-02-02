@@ -89,7 +89,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'SmartWalletSaver',
         'USER': 'postgres',
-        'PASSWORD': 'RamSham@123',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'POST': '5432',
     }
