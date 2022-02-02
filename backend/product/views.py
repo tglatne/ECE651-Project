@@ -44,6 +44,7 @@ def getCategory(request, pk):
     return Response(serializer.data)
 
 
+
 # class ProductView(viewsets.ModelViewSet):
 #     options = webdriver.ChromeOptions()
 #     options.add_argument("--enable-javascript")
