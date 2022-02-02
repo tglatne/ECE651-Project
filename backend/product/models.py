@@ -14,6 +14,10 @@ class Product(models.Model):
     price_walmart = models.DecimalField(max_digits= 7 , decimal_places= 3, default= 0)
     price_sobeys = models.DecimalField(max_digits= 7 , decimal_places= 3, default= 0)
     price_zehrs = models.DecimalField(max_digits= 7 , decimal_places= 3, default= 0)
+    walmart_url = models.CharField(max_length= 500, default= 'www.walmart.ca')
+    zehrs_url = models.CharField(max_length= 500, default= 'www.zehrs.ca')
+    sobeys_url = models.CharField(max_length= 500, default= 'www.sobeys.ca')
+    description = models.TextField(blank=True, null= True)
 
     def __str__(self):
         return self.product_name
