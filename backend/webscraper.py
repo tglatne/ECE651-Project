@@ -16,7 +16,7 @@ def webscrap():
     html = driver.page_source
     soup = BeautifulSoup(html, 'lxml')
     # soup = soup.find('span' , class_ = 'css-2vqe5n esdkp3p0')
-    soup = soup.find('span' , class_ = 'price__value selling-price-list__item__price selling-price-list__item__price--now-price__value')
+    # soup = soup.find('span' , class_ = 'price__value selling-price-list__item__price selling-price-list__item__price--now-price__value')
     # soup = soup.find('span' , class_ = 'price__value selling-price-list__item__price selling-price-list__item__price--now-price__value')
 
     var = print(soup.text)
