@@ -3,18 +3,28 @@
   "version": "0.1.0",
   "private": true,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   "proxy" : "http://localhost:8000",
 >>>>>>> sagar
+=======
+>>>>>>> b5961c8eeb1c87863a98cbc7c9a0cfcd44eb4d22
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b5961c8eeb1c87863a98cbc7c9a0cfcd44eb4d22
     "axios": "^0.25.0",
     "bootswatch": "^5.1.3",
     "react": "^17.0.2",
     "react-bootstrap": "^2.1.1",
+<<<<<<< HEAD
+=======
+    "react-bootstrap-counter": "^1.0.1",
+>>>>>>> b5961c8eeb1c87863a98cbc7c9a0cfcd44eb4d22
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
     "react-router-bootstrap": "^0.26.0",
@@ -24,11 +34,14 @@
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
+<<<<<<< HEAD
 =======
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",
 >>>>>>> sagar
+=======
+>>>>>>> b5961c8eeb1c87863a98cbc7c9a0cfcd44eb4d22
     "web-vitals": "^2.1.3"
   },
   "scripts": {

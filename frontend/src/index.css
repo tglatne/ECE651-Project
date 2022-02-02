@@ -12,9 +12,20 @@ code {
     monospace;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b5961c8eeb1c87863a98cbc7c9a0cfcd44eb4d22
 
 main {
   min-height: 80vh;
 }
+<<<<<<< HEAD
 =======
 >>>>>>> sagar
+=======
+
+.adjust-btn {
+  border-width: 0px;
+  background-color: white;
+}
+>>>>>>> b5961c8eeb1c87863a98cbc7c9a0cfcd44eb4d22

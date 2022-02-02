@@ -4,6 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b5961c8eeb1c87863a98cbc7c9a0cfcd44eb4d22
 import 'bootswatch/dist/lux/bootstrap.min.css';
 import { Provider } from 'react-redux';
 import store from './store'
@@ -12,6 +15,7 @@ ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>,
+<<<<<<< HEAD
 =======
 
 ReactDOM.render(
@@ -19,6 +23,8 @@ ReactDOM.render(
     <App />
   </React.StrictMode>,
 >>>>>>> sagar
+=======
+>>>>>>> b5961c8eeb1c87863a98cbc7c9a0cfcd44eb4d22
   document.getElementById('root')
 );
 

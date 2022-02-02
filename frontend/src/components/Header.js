@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import uuid from 'react-uuid';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
@@ -11,6 +12,23 @@ function Header() {
       setCategories(response.data)
     );
   }, []);
+=======
+import React, { useEffect } from 'react';
+import uuid from 'react-uuid';
+import { useDispatch, useSelector } from 'react-redux';
+import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+import { listCategories } from '../actionCreators/categoryActionCreators';
+
+function Header() {
+  const dispatch = useDispatch();
+  const categoryList = useSelector((state) => state.categoryList);
+  const { categories } = categoryList;
+
+  useEffect(() => {
+    dispatch(listCategories());
+  }, [dispatch]);
+>>>>>>> b5961c8eeb1c87863a98cbc7c9a0cfcd44eb4d22
 
   return (
     <header>
@@ -39,7 +57,15 @@ function Header() {
                 <Nav.Link>Products</Nav.Link>
               </LinkContainer>
 
+<<<<<<< HEAD
               <NavDropdown title='Categories' id='basic-nav-dropdown'>
+=======
+              <NavDropdown
+                title='Categories'
+                id='basic-nav-dropdown'
+                menuVariant='dark'
+              >
+>>>>>>> b5961c8eeb1c87863a98cbc7c9a0cfcd44eb4d22
                 {categories.map((category) => (
                   <LinkContainer
                     key={uuid()}
