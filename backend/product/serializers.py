@@ -35,7 +35,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 class UserSerializerWithToken(UserSerializer): #we have written this class so we get the tokenn that we can use. it is same as "access" field.
     # got to api/users/login to see.
-
     tokenn = serializers.SerializerMethodField(read_only= True)
     class Meta:
         model = User

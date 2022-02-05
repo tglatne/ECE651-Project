@@ -1,6 +1,8 @@
 from .serializers import ProductSerializer, CategorySerializer, UserSerializer, UserSerializerWithToken
 from .models import Product, Category
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
+from rest_framework import status
 from selenium import webdriver
 from bs4 import BeautifulSoup
 import time
@@ -63,6 +65,8 @@ def getCategory(request, pk):
     return Response(serializer.data)
 
 
+
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getUserProfile(request):
@@ -78,7 +82,21 @@ def getUsers(request):
     return Response(serializer.data )
 
 
-
+@api_view(['POST'])
+def registerUser(request):
+    try:
+        data =request.data
+        user = User.objects.create(
+            first_name = data['name'], # data['name'] will come from the frontend
+            username = data['email'],
+            email = data['email'],
+            password = make_password(data['password']) #it will hash the password
+        )
+        serializer = UserSerializerWithToken(user , many= False)
+        return Response(serializer.data)
+    except: #EXCEPT BLock when new user registers with same credentials
+        message = {'detail' : 'User with this email already exists. Try another one'}
+        return Response(message, status=status.HTTP_400_BAD_REQUEST)
 # class ProductView(viewsets.ModelViewSet):
 #     options = webdriver.ChromeOptions()
 #     options.add_argument("--enable-javascript")
