@@ -8,16 +8,16 @@ class Category(models.Model):
 
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete= models.SET_NULL, null= True)
-    user = models.ForeignKey(User, on_delete= models.SET_NULL, null= True)
-    product_name = models.CharField(max_length= 100)
-    image = models.ImageField(null= True, blank= True)
+    user = models.ForeignKey(User, on_delete= models.SET_NULL, null= True, blank= True)
+    product_name = models.CharField(max_length= 300)
+    image = models.ImageField(null= True, blank= True, max_length=300)
     price_walmart = models.DecimalField(max_digits= 7 , decimal_places= 3, default= 0)
     price_sobeys = models.DecimalField(max_digits= 7 , decimal_places= 3, default= 0)
     price_zehrs = models.DecimalField(max_digits= 7 , decimal_places= 3, default= 0)
     walmart_url = models.CharField(max_length= 500, default= 'www.walmart.ca')
     zehrs_url = models.CharField(max_length= 500, default= 'www.zehrs.ca')
     sobeys_url = models.CharField(max_length= 500, default= 'www.sobeys.ca')
-    description = models.TextField(blank=True, null= True)
+    description = models.TextField(max_length = 300, blank=True, null= True)
 
     def __str__(self):
         return self.product_name
@@ -35,9 +35,9 @@ class Cart(models.Model):
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete= models.SET_NULL, null= True)
     product = models.ForeignKey(Product, on_delete= models.SET_NULL, null= True)
-    name = models.CharField(max_length= 100)
+    name = models.CharField(max_length= 300)
     quantity = models.IntegerField(null= True, blank= True, default= 0 )
-    img = models.CharField(max_length= 100)
+    img = models.CharField(max_length= 300)
     price_walmart = models.DecimalField(max_digits=7, decimal_places=3, default= 0)
     price_sobeys = models.DecimalField(max_digits=7, decimal_places=3, default= 0)
     price_zehrs = models.DecimalField(max_digits=7, decimal_places=3, default= 0)

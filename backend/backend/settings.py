@@ -37,9 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'product',
+    'django_extensions',
     'corsheaders',
-    'rest_framework'
+    'rest_framework',
+    'product.apps.ProductConfig',
 ]
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',

@@ -5,3 +5,4 @@ pillow
 psycopg2
 selenium
 djangorestframework-simplejwt
+django-extensions
