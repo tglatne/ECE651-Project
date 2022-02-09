@@ -41,6 +41,10 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'product.apps.ProductConfig',
+
+    'django_crontab',
+    'django_celery_results',
+    'django_celery_beat',
 ]
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
