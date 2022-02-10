@@ -4,15 +4,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { listCategories } from '../actionCreators/categoryActionCreators';
+import { USER_LOGOUT } from '../constants/userConstants';
 
 function Header() {
   const dispatch = useDispatch();
   const categoryList = useSelector((state) => state.categoryList);
   const { categories } = categoryList;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   useEffect(() => {
     dispatch(listCategories());
   }, [dispatch]);
+
+  const logoutHandler = () => {
+    dispatch({ type: USER_LOGOUT });
+  };
 
   return (
     <header>
@@ -31,11 +39,27 @@ function Header() {
                 </Nav.Link>
               </LinkContainer>
 
-              <LinkContainer to='/login'>
-                <Nav.Link>
-                  <i className='fas fa-user'></i>Login
-                </Nav.Link>
-              </LinkContainer>
+              {userInfo ? (
+                <NavDropdown
+                  title={userInfo.name}
+                  id='basic-nav-dropdown'
+                  menuVariant='dark'
+                >
+                  <LinkContainer to='/users/profile/'>
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <LinkContainer to='/login'>
+                  <Nav.Link>
+                    <i className='fas fa-user'></i>Login
+                  </Nav.Link>
+                </LinkContainer>
+              )}
 
               <LinkContainer to='/products'>
                 <Nav.Link>Products</Nav.Link>

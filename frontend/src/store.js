@@ -1,32 +1,47 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { productListReducer, productDetailsReducer} from './reducers/productReducers';
-import { categoryListReducer, categoryDetailsReducer} from './reducers/categoryReducers';
-import { cartReducer } from "./reducers/cartReducers";
+import {
+  productListReducer,
+  productDetailsReducer,
+} from './reducers/productReducers';
+import {
+  categoryListReducer,
+  categoryDetailsReducer,
+} from './reducers/categoryReducers';
+import { cartReducer } from './reducers/cartReducers';
+import { userLoginReducer } from './reducers/userReducers';
 
 const reducer = combineReducers({
-    productList: productListReducer,
-    productDetails: productDetailsReducer,
-    categoryList: categoryListReducer,
-    categoryDetails: categoryDetailsReducer,
-    cart: cartReducer
-})
+  productList: productListReducer,
+  productDetails: productDetailsReducer,
+  categoryList: categoryListReducer,
+  categoryDetails: categoryDetailsReducer,
+  cart: cartReducer,
+  userLogin: userLoginReducer,
+});
 
-let cartItemsFromStorage = []
+let cartItemsFromStorage = [];
 if (localStorage.getItem('cartItems') != undefined) {
-    cartItemsFromStorage= JSON.parse(localStorage.getItem('cartItems'))
-} 
-
-
-
-const initialState = {
-    cart: {cartItems: cartItemsFromStorage}
+  cartItemsFromStorage = JSON.parse(localStorage.getItem('cartItems'));
 }
 
-const middleware = [thunk]
+let userInfoFromStorage = null;
+if (localStorage.getItem('userInfo') != undefined) {
+  userInfoFromStorage = JSON.parse(localStorage.getItem('userInfo'));
+}
 
-const store = createStore(reducer, initialState, 
-    composeWithDevTools(applyMiddleware(...middleware)))
+const initialState = {
+  cart: { cartItems: cartItemsFromStorage },
+  userLogin: { userInfo: userInfoFromStorage },
+};
 
-export default store
+const middleware = [thunk];
+
+const store = createStore(
+  reducer,
+  initialState,
+  composeWithDevTools(applyMiddleware(...middleware))
+);
+
+export default store;
