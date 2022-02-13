@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { listCategories } from '../actionCreators/categoryActionCreators';
-import { USER_LOGOUT } from '../constants/userConstants';
+import { logout } from '../actionCreators/userActionCreators';
 
 function Header() {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ function Header() {
   }, [dispatch]);
 
   const logoutHandler = () => {
-    dispatch({ type: USER_LOGOUT });
+    dispatch(logout());
   };
 
   return (
@@ -41,7 +41,7 @@ function Header() {
 
               {userInfo ? (
                 <NavDropdown
-                  title={userInfo.name}
+                  title={userInfo.namee}
                   id='basic-nav-dropdown'
                   menuVariant='dark'
                 >

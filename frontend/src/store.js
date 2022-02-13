@@ -10,7 +10,7 @@ import {
   categoryDetailsReducer,
 } from './reducers/categoryReducers';
 import { cartReducer } from './reducers/cartReducers';
-import { userLoginReducer } from './reducers/userReducers';
+import { userLoginReducer, userRegisterReducer } from './reducers/userReducers';
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -19,15 +19,16 @@ const reducer = combineReducers({
   categoryDetails: categoryDetailsReducer,
   cart: cartReducer,
   userLogin: userLoginReducer,
+  userRegister: userRegisterReducer,
 });
 
 let cartItemsFromStorage = [];
-if (localStorage.getItem('cartItems') != undefined) {
+if (localStorage.getItem('cartItems') !== undefined) {
   cartItemsFromStorage = JSON.parse(localStorage.getItem('cartItems'));
 }
 
 let userInfoFromStorage = null;
-if (localStorage.getItem('userInfo') != undefined) {
+if (localStorage.getItem('userInfo') !== undefined) {
   userInfoFromStorage = JSON.parse(localStorage.getItem('userInfo'));
 }
 
