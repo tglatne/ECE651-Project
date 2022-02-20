@@ -10,7 +10,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete= models.SET_NULL, null= True)
     user = models.ForeignKey(User, on_delete= models.SET_NULL, null= True, blank= True)
     product_name = models.CharField(max_length= 300)
-    image = models.ImageField(null= True, blank= True, max_length=300)
+    image = models.CharField(max_length= 500, default= 'https://i5.walmartimages.ca/images/Enlarge/272/109/6000191272109.jpg')
     price_walmart = models.DecimalField(max_digits= 7 , decimal_places= 3, default= 0)
     price_sobeys = models.DecimalField(max_digits= 7 , decimal_places= 3, default= 0)
     price_zehrs = models.DecimalField(max_digits= 7 , decimal_places= 3, default= 0)
