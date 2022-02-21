@@ -129,12 +129,21 @@ DATABASES = {
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
 
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'SmartWalletSaver',
+    #     'USER': 'postgres',
+    #     'PASSWORD': '4d9e53cf92c8e73540a5cf4be99d39da387497008a3801c40fd8691746654dbb',
+    #     'HOST': 'localhost',
+    #     'POST': '5432',
+    # }
+
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'SmartWalletSaver',
-        'USER': 'postgres',
-        'PASSWORD': '',
-        'HOST': 'localhost',
+        'NAME': 'd25e67sd7jam4o',
+        'USER': 'bafhzvjmpggdjf',
+        'PASSWORD': '4d9e53cf92c8e73540a5cf4be99d39da387497008a3801c40fd8691746654dbb',
+        'HOST': 'ec2-3-217-216-13.compute-1.amazonaws.com',
         'POST': '5432',
     }
 }
