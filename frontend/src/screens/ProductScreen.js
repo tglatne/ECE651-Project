@@ -38,8 +38,8 @@ function ProductScreen() {
   };
 
   const addToCartHandler = () => {
+    console.log(id)
     navigate(`/cart/${id}?qty=${qty}`)
-
   }
 
 
@@ -58,7 +58,7 @@ function ProductScreen() {
             <Image
               style={{ height: '41rem', width: '32rem' }}
               src={product.image}
-              alt={product.title}
+              alt={product.product_name}
               fluid
             />
           </Col>
@@ -66,19 +66,19 @@ function ProductScreen() {
           <Col md={3}>
             <ListGroup variant='flush'>
               <ListGroup.Item as='div'>
-                <h3>{product.title}</h3>
+                <h3>{product.product_name}</h3>
               </ListGroup.Item>
 
               <ListGroup.Item className='mt-2'>
-                Price_Walmart: ${product.price}
+                Price_Walmart: ${product.price_walmart}
               </ListGroup.Item>
 
               <ListGroup.Item className='mt-2'>
-                Price_Sobeys: ${product.price}
+                Price_Sobeys: ${product.price_sobeys}
               </ListGroup.Item>
 
               <ListGroup.Item className='mt-2'>
-                Price_Zehrs: ${product.price}
+                Price_Zehrs: ${product.price_zehrs}
               </ListGroup.Item>
               <ListGroup.Item className='mt-2'>
                 Description: {product.description}
@@ -93,7 +93,7 @@ function ProductScreen() {
                   <Row>
                     <Col>Price_Walmart:</Col>
                     <Col>
-                      <strong>${product.price}</strong>
+                      <strong>${product.price_walmart}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>
@@ -102,7 +102,7 @@ function ProductScreen() {
                   <Row>
                     <Col>Price_Sobeys:</Col>
                     <Col>
-                      <strong>${product.price}</strong>
+                      <strong>${product.price_sobeys}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>
@@ -111,7 +111,7 @@ function ProductScreen() {
                   <Row>
                     <Col>Price_Zehrs:</Col>
                     <Col>
-                      <strong>${product.price}</strong>
+                      <strong>${product.price_zehrs}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>

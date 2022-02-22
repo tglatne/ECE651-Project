@@ -10,6 +10,7 @@ function Header() {
   const dispatch = useDispatch();
   const categoryList = useSelector((state) => state.categoryList);
   const { categories } = categoryList;
+ 
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -73,9 +74,9 @@ function Header() {
                 {categories.map((category) => (
                   <LinkContainer
                     key={uuid()}
-                    to={`/products/categories/${category}`}
+                    to={`/products/categories/${category.id}`}
                   >
-                    <NavDropdown.Item>{category}</NavDropdown.Item>
+                    <NavDropdown.Item>{category.category_name}</NavDropdown.Item>
                   </LinkContainer>
                 ))}
                 <NavDropdown.Divider />

@@ -16,11 +16,11 @@ function Product({ product }) {
       <Card.Body>
         <Link to={`/products/${product.id}`}>
           <Card.Title as='div' className='my-3'>
-            <strong>{product.title}</strong>
+            <strong>{product.product_name}</strong>
           </Card.Title>
         </Link>
 
-        <Card.Text as='h3'>${product.price}</Card.Text>
+        {/* <Card.Text as='h3'>${product.price}</Card.Text> */}
       </Card.Body>
     </Card>
   );

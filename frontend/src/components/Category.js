@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function Category({ category }) {
   return (
     <Card style={{ height: '92%' }} className='my-3 p-3 rounded text-center'>
-      <Link to={`/products/categories/${category}`}>
+      <Link to={`/products/categories/${category.id}`}>
         {/* <Card.Img
               variant='top'
               src={product.image}
@@ -15,12 +15,12 @@ function Category({ category }) {
 
       <Card.Body>
         <Link
-          to={`/products/categories/${category}`}
+          to={`/products/categories/${category.id}`}
           style={{ textDecoration: 'none' }}
         >
           <Card.Title as='div' className='my-3'>
             <h4>
-              <strong>{category}</strong>
+              <strong>{category.category_name}</strong>
             </h4>
           </Card.Title>
         </Link>

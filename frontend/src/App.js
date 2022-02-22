@@ -26,7 +26,7 @@ function App() {
               element={<DepartmentScreen />}
             />
             <Route
-              path='/products/categories/:category'
+              path='/products/categories/:id'
               element={<CategoryScreen />}
             />
             <Route path='/cart/:id' element={<CartScreen />} />

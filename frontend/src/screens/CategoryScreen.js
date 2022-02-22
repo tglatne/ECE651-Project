@@ -9,15 +9,15 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 
 function CategoryScreen() {
-  const { category } = useParams();
+  const { id } = useParams();
 
   const dispatch = useDispatch();
   const categoryDetails = useSelector((state) => state.categoryDetails);
   const { products, loading, error } = categoryDetails;
 
   useEffect(() => {
-    dispatch(listCategoryDetails(category));
-  }, [category]);
+    dispatch(listCategoryDetails(id));
+  }, [id]);
 
   return (
     <div className="mt-4">

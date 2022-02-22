@@ -17,7 +17,7 @@ class Product(models.Model):
     walmart_url = models.CharField(max_length= 500, default= 'www.walmart.ca')
     zehrs_url = models.CharField(max_length= 500, default= 'www.zehrs.ca')
     sobeys_url = models.CharField(max_length= 500, default= 'www.sobeys.ca')
-    description = models.TextField(max_length = 300, blank=True, null= True)
+    description = models.TextField(max_length = 700, blank=True, null= True)
 
     def __str__(self):
         return self.product_name
