@@ -6,11 +6,9 @@ psycopg2
 selenium
 djangorestframework-simplejwt
 django-extensions
-<<<<<<< HEAD
 celery
 redis
 django-celery-results
 django-celery-beat
-=======
 BeautifulSoup4
->>>>>>> master
+
