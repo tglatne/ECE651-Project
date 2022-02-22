@@ -192,7 +192,7 @@ MEDIA_ROOT = 'static/img'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #Celery settings
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_BROKER_URL = 'redis://:p6adb31f65c8a2492c411f2e2ee227a9ecb62d6a2c6d7d8ff48748aaf70f10278@ec2-52-45-6-233.compute-1.amazonaws.com:22410'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'

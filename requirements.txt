@@ -6,3 +6,7 @@ psycopg2
 selenium
 djangorestframework-simplejwt
 django-extensions
+celery
+redis
+django-celery-results
+django-celery-beat
