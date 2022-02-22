@@ -40,11 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'corsheaders',
-
     'product.apps.ProductConfig',
     'rest_framework',
-    'django_extensions',
-    'django_crontab',
     'django_celery_results',
     'django_celery_beat',
 ]
