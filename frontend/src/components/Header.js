@@ -4,15 +4,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { listCategories } from '../actionCreators/categoryActionCreators';
+import { logout } from '../actionCreators/userActionCreators';
 
 function Header() {
   const dispatch = useDispatch();
   const categoryList = useSelector((state) => state.categoryList);
   const { categories } = categoryList;
+ 
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   useEffect(() => {
     dispatch(listCategories());
   }, [dispatch]);
+
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
 
   return (
     <header>
@@ -31,11 +40,27 @@ function Header() {
                 </Nav.Link>
               </LinkContainer>
 
-              <LinkContainer to='/login'>
-                <Nav.Link>
-                  <i className='fas fa-user'></i>Login
-                </Nav.Link>
-              </LinkContainer>
+              {userInfo ? (
+                <NavDropdown
+                  title={userInfo.namee}
+                  id='basic-nav-dropdown'
+                  menuVariant='dark'
+                >
+                  <LinkContainer to='/users/profile/'>
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <LinkContainer to='/login'>
+                  <Nav.Link>
+                    <i className='fas fa-user'></i>Login
+                  </Nav.Link>
+                </LinkContainer>
+              )}
 
               <LinkContainer to='/products'>
                 <Nav.Link>Products</Nav.Link>
@@ -49,9 +74,9 @@ function Header() {
                 {categories.map((category) => (
                   <LinkContainer
                     key={uuid()}
-                    to={`/products/categories/${category}`}
+                    to={`/products/categories/${category.id}`}
                   >
-                    <NavDropdown.Item>{category}</NavDropdown.Item>
+                    <NavDropdown.Item>{category.category_name}</NavDropdown.Item>
                   </LinkContainer>
                 ))}
                 <NavDropdown.Divider />

@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Link,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import {
   Row,
   Col,
@@ -61,10 +57,42 @@ function CartScreen() {
                   <Col md={2}>
                     <Image src={item.image} alt={item.name} fluid rounded />
                   </Col>
-                  <Col md={3}>
-                    <Link to={`/product/${item.product_id}`}>{item.title}</Link>
+                  <Col md={2}>
+                    <Link to={`/product/${item.product_id}`}>{item.name}</Link>
                   </Col>
-                  <Col md={2}>${item.price}</Col>
+                  {/* <Col md={2}>${item.price_walmart}</Col> */}
+                  <Col md={3}>
+                    <Card>
+                      <ListGroup variant="flush">
+                        <ListGroup.Item className="mt-3">
+                          <Row>
+                            <Col>Price_Walmart:</Col>
+                            <Col>
+                              <strong>${item.price_walmart}</strong>
+                            </Col>
+                          </Row>
+                        </ListGroup.Item>
+
+                        <ListGroup.Item className="mt-3">
+                          <Row>
+                            <Col>Price_Sobeys:</Col>
+                            <Col>
+                              <strong>${item.price_sobeys}</strong>
+                            </Col>
+                          </Row>
+                        </ListGroup.Item>
+
+                        <ListGroup.Item className="mt-3">
+                          <Row>
+                            <Col>Price_Zehrs:</Col>
+                            <Col>
+                              <strong>${item.price_zehrs}</strong>
+                            </Col>
+                          </Row>
+                        </ListGroup.Item>
+                      </ListGroup>
+                    </Card>
+                  </Col>
                   <Col className="mt-1">
                     <Button
                       bsPrefix="adjust-btn"
@@ -118,14 +146,38 @@ function CartScreen() {
           <ListGroup variant="flush">
             <ListGroup.Item>
               <h2>
-                Subtotal ({cartItems.reduce((acc, item) => acc + Number(item.qty), 0)})
+                Subtotal (
+                {cartItems.reduce((acc, item) => acc + Number(item.qty), 0)})
                 items
               </h2>
-              $
-              {cartItems
-                .reduce((acc, item) => acc + Number(item.qty) * item.price, 0)
-                .toFixed(2)}
-            </ListGroup.Item>
+                <ListGroup.Item>
+                Total_Price_Walmart: $
+                {cartItems
+                  .reduce(
+                    (acc, item) => acc + Number(item.qty) * item.price_walmart,
+                    0
+                  )
+                  .toFixed(2)}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                Total_Price_Sobeys: $
+                {cartItems
+                  .reduce(
+                    (acc, item) => acc + Number(item.qty) * item.price_sobeys,
+                    0
+                  )
+                  .toFixed(2)}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                Total_Price_Zehrs: $
+                {cartItems
+                  .reduce(
+                    (acc, item) => acc + Number(item.qty) * item.price_zehrs,
+                    0
+                  )
+                  .toFixed(2)}
+              </ListGroup.Item>
+            </ListGroup.Item> 
           </ListGroup>
         </Card>
       </Col>

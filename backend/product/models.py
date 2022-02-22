@@ -10,14 +10,14 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete= models.SET_NULL, null= True)
     user = models.ForeignKey(User, on_delete= models.SET_NULL, null= True, blank= True)
     product_name = models.CharField(max_length= 300)
-    image = models.ImageField(null= True, blank= True, max_length=300)
+    image = models.CharField(max_length= 500, default= 'https://i5.walmartimages.ca/images/Enlarge/272/109/6000191272109.jpg')
     price_walmart = models.DecimalField(max_digits= 7 , decimal_places= 3, default= 0)
     price_sobeys = models.DecimalField(max_digits= 7 , decimal_places= 3, default= 0)
     price_zehrs = models.DecimalField(max_digits= 7 , decimal_places= 3, default= 0)
     walmart_url = models.CharField(max_length= 500, default= 'www.walmart.ca')
     zehrs_url = models.CharField(max_length= 500, default= 'www.zehrs.ca')
     sobeys_url = models.CharField(max_length= 500, default= 'www.sobeys.ca')
-    description = models.TextField(max_length = 300, blank=True, null= True)
+    description = models.TextField(max_length = 700, blank=True, null= True)
 
     def __str__(self):
         return self.product_name

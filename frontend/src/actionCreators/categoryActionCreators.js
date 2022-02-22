@@ -10,11 +10,14 @@ import {
     CATEGORY_DETAIL_FAIL
 } from "../constants/categoryConstants";
 
+import { URL } from "../constants/urlConstants";
+
 export const listCategories = () => async (dispatch) => {
   try {
     dispatch({ type: CATEGORY_LIST_REQUEST });
 
-    const { data } = await axios.get(`https://fakestoreapi.com/products/categories`);
+    // const { data } = await axios.get(`https://fakestoreapi.com/products/categories`);
+    const { data } = await axios.get(`${URL}/api/categories`);
 
     dispatch({
       type: CATEGORY_LIST_SUCCESS,
@@ -31,11 +34,12 @@ export const listCategories = () => async (dispatch) => {
   }
 };
 
-export const listCategoryDetails = (category) => async (dispatch) => {
+export const listCategoryDetails = (id) => async (dispatch) => {
     try {
       dispatch({ type: CATEGORY_DETAIL_REQUEST });
   
-      const { data } = await axios.get(`https://fakestoreapi.com/products/category/${category}`);
+      // const { data } = await axios.get(`https://fakestoreapi.com/products/category/${category}`);
+      const { data } = await axios.get(`${URL}/api/categories/${id}`);
   
       dispatch({
         type: CATEGORY_DETAIL_SUCCESS,

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -60,7 +61,6 @@ REST_FRAMEWORK = {
 
 }
 
-from datetime import timedelta
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=30),
@@ -134,12 +134,21 @@ DATABASES = {
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
 
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'SmartWalletSaver',
+    #     'USER': 'postgres',
+    #     'PASSWORD': '4d9e53cf92c8e73540a5cf4be99d39da387497008a3801c40fd8691746654dbb',
+    #     'HOST': 'localhost',
+    #     'POST': '5432',
+    # }
+
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'SmartWalletSaver',
-        'USER': 'postgres',
-        'PASSWORD': '',
-        'HOST': 'localhost',
+        'NAME': 'd25e67sd7jam4o',
+        'USER': 'bafhzvjmpggdjf',
+        'PASSWORD': '4d9e53cf92c8e73540a5cf4be99d39da387497008a3801c40fd8691746654dbb',
+        'HOST': 'ec2-3-217-216-13.compute-1.amazonaws.com',
         'POST': '5432',
     }
 }
@@ -180,7 +189,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
-MEDIA_URL  = '/images/'
+MEDIA_URL = '/images/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
