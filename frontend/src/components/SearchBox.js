@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 function SearchBox() {
 
   const [keyword, setKeyword] = useState("");
+  const dispatch = useDispatch();
+  const page = useSelector((state) => state.page);
 
   const navigate = useNavigate();
   const location = useLocation();
