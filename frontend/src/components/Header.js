@@ -10,7 +10,6 @@ function Header() {
   const dispatch = useDispatch();
   const categoryList = useSelector((state) => state.categoryList);
   const { categories } = categoryList;
- 
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -76,7 +75,9 @@ function Header() {
                     key={uuid()}
                     to={`/products/categories/${category.id}`}
                   >
-                    <NavDropdown.Item>{category.category_name}</NavDropdown.Item>
+                    <NavDropdown.Item>
+                      {category.category_name}
+                    </NavDropdown.Item>
                   </LinkContainer>
                 ))}
                 <NavDropdown.Divider />
@@ -84,6 +85,12 @@ function Header() {
                   <NavDropdown.Item href=''>All Catergories</NavDropdown.Item>
                 </LinkContainer>
               </NavDropdown>
+
+              {userInfo && userInfo.isAdminn && (
+                <LinkContainer to='/admin/productlist/'>
+                  <Nav.Link>ProductList</Nav.Link>
+                </LinkContainer>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

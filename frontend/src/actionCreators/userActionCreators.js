@@ -8,6 +8,7 @@ import {
   USER_REGISTER_FAIL,
 } from '../constants/userConstants';
 import axios from 'axios';
+import { URL } from '../constants/urlConstants';
 
 export const login = (user) => async (dispatch) => {
   try {
@@ -18,11 +19,7 @@ export const login = (user) => async (dispatch) => {
         'Content-type': 'application.json',
       },
     };
-    const { data } = await axios.post(
-      'http://localhost:8000/api/users/login/',
-      user,
-      config
-    );
+    const { data } = await axios.post(`${URL}/api/users/login/`, user, config);
 
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
     localStorage.setItem('userInfo', JSON.stringify(data));
@@ -45,10 +42,7 @@ export const logout = () => async (dispatch) => {
 export const register = (user) => async (dispatch) => {
   try {
     dispatch({ type: USER_REGISTER_REQUEST });
-    const { data } = await axios.post(
-      'http://localhost:8000/api/users/register/',
-      user
-    );
+    const { data } = await axios.post(`${URL}/api/users/register/`, user);
 
     dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
