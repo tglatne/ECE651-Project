@@ -5,6 +5,7 @@ import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { listCategories } from '../actionCreators/categoryActionCreators';
 import { logout } from '../actionCreators/userActionCreators';
+import SearchBox from '../components/SearchBox';
 
 function Header() {
   const dispatch = useDispatch();
@@ -85,13 +86,13 @@ function Header() {
                   <NavDropdown.Item href=''>All Catergories</NavDropdown.Item>
                 </LinkContainer>
               </NavDropdown>
-
               {userInfo && userInfo.isAdminn && (
                 <LinkContainer to='/admin/productlist/'>
                   <Nav.Link>ProductList</Nav.Link>
                 </LinkContainer>
               )}
             </Nav>
+            <SearchBox />
           </Navbar.Collapse>
         </Container>
       </Navbar>
