@@ -19,7 +19,7 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 app.conf.beat_schedule = {
     'my_scheduled_task':{
         'task' : 'product.tasks.my_test',
-        'schedule': 30.0
+        'schedule': 30
    }
 }
 
