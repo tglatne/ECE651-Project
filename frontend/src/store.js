@@ -11,6 +11,7 @@ import {
 } from './reducers/categoryReducers';
 import { cartReducer } from './reducers/cartReducers';
 import { userLoginReducer, userRegisterReducer } from './reducers/userReducers';
+import { pageReducer } from './reducers/pageReducer';
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -20,6 +21,7 @@ const reducer = combineReducers({
   cart: cartReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
+  // page: pageReducer
 });
 
 let cartItemsFromStorage = [];
