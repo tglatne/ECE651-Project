@@ -5,13 +5,7 @@ import { Link } from 'react-router-dom';
 function Category({ category }) {
   return (
     <Card style={{ height: '92%' }} className='my-3 p-3 rounded text-center'>
-      <Link to={`/products/categories/${category.id}`}>
-        {/* <Card.Img
-              variant='top'
-              src={product.image}
-              style={{ height: '320px' }}
-            /> */}
-      </Link>
+      <Link to={`/products/categories/${category.id}`}></Link>
 
       <Card.Body>
         <Link
