@@ -4,6 +4,7 @@ import moxios from 'moxios';
 import expect from 'expect';
 import * as actions from '../../constants/productConstants';
 import { listProducts } from '../productActionCreators';
+import { PRODUCT_LIST } from '../../mock/mockProductRes';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -18,23 +19,18 @@ describe('getProductList actions', () => {
     moxios.uninstall();
   });
 
-  const mockResponse = [
-    { id: 1, productName: 'Bread', category: 'Bakery' },
-    { id: 2, productName: 'Chicken', category: 'Meat' }
-]
-
   it('creates PRODUCT_LIST_SUCCESS after successfuly fetching products', () => {
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
         status: 200,
-        response: mockResponse
+        response: PRODUCT_LIST
       });
     });
 
     const expectedActions = [
       { type: actions.PRODUCT_LIST_REQUEST },
-      { type: actions.PRODUCT_LIST_SUCCESS, payload: mockResponse },
+      { type: actions.PRODUCT_LIST_SUCCESS, payload: PRODUCT_LIST },
     ];
 
     const store = mockStore({ products: {} })
