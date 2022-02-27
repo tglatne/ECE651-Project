@@ -10,7 +10,6 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 describe('getProductList actions', () => {
-
   beforeEach(function () {
     moxios.install();
   });
@@ -24,7 +23,7 @@ describe('getProductList actions', () => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
         status: 200,
-        response: PRODUCT_LIST
+        response: PRODUCT_LIST,
       });
     });
 
@@ -33,7 +32,7 @@ describe('getProductList actions', () => {
       { type: actions.PRODUCT_LIST_SUCCESS, payload: PRODUCT_LIST },
     ];
 
-    const store = mockStore({ products: {} })
+    const store = mockStore({ products: {} });
 
     return store.dispatch(listProducts()).then(() => {
       // return of async actions
