@@ -34,7 +34,9 @@ function CartScreen() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(addToCart(id, qty));
+    if (id !== undefined) {
+      dispatch(addToCart(id, qty));
+    }
   }, [dispatch, id, qty]);
 
   const removeFromCartHandler = (id) => {
