@@ -1,23 +1,27 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { useSearchParams } from 'react-router-dom';
 
-function Pagination({ productsPerPage, totalProducts, paginate }) {
+function Pagination({ productsPerPage, totalProducts, paginate, isList }) {
   const pageNumbers = [];
 
   const [searchParams] = useSearchParams();
-  let keyword = "";
+  let keyword = '';
   if (searchParams) {
-    keyword = searchParams.get("keyword");
+    keyword = searchParams.get('keyword');
   } else {
-    keyword = "";
+    keyword = '';
   }
 
-  let pathname
+  let pathname;
   if (keyword) {
-      pathname = `/products?keyword=${keyword}`
+    pathname = `/products?keyword=${keyword}`;
   } else {
-    pathname = '/products'
+    if (isList) {
+      pathname = '/admin/productlist';
+    } else {
+      pathname = '/products';
+    }
   }
 
   for (let i = 1; i <= Math.ceil(totalProducts / productsPerPage); i++) {
@@ -26,10 +30,14 @@ function Pagination({ productsPerPage, totalProducts, paginate }) {
 
   return (
     <nav>
-      <ul className="pagination">
+      <ul className='pagination'>
         {pageNumbers.map((number) => (
-          <li key={number} className="page-item">
-            <Link onClick={() => paginate(number)} to={{pathname: pathname}} className="page-link">
+          <li key={number} className='page-item'>
+            <Link
+              onClick={() => paginate(number)}
+              to={{ pathname: pathname }}
+              className='page-link'
+            >
               {number}
             </Link>
           </li>

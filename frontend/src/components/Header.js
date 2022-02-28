@@ -86,6 +86,17 @@ function Header() {
                   <NavDropdown.Item href=''>All Catergories</NavDropdown.Item>
                 </LinkContainer>
               </NavDropdown>
+              {userInfo && userInfo.isAdminn && (
+                <NavDropdown
+                  title='Admin'
+                  id='basic-nav-dropdown'
+                  menuVariant='dark'
+                >
+                  <LinkContainer to='/admin/productlist/'>
+                    <Nav.Link>ProductList</Nav.Link>
+                  </LinkContainer>
+                </NavDropdown>
+              )}
             </Nav>
             <SearchBox />
           </Navbar.Collapse>
