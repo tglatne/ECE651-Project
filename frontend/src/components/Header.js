@@ -11,7 +11,6 @@ function Header() {
   const dispatch = useDispatch();
   const categoryList = useSelector((state) => state.categoryList);
   const { categories } = categoryList;
- 
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -34,9 +33,7 @@ function Header() {
 
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
-            
             <Nav className='mr-auto'>
-            
               <LinkContainer to='/cart'>
                 <Nav.Link>
                   <i className='fas fa-shopping-cart'></i>Cart
@@ -53,7 +50,7 @@ function Header() {
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
 
-                  <NavDropdown.Item onClick={logoutHandler}>
+                  <NavDropdown.Item className='logout' onClick={logoutHandler}>
                     Logout
                   </NavDropdown.Item>
                 </NavDropdown>
@@ -79,7 +76,9 @@ function Header() {
                     key={uuid()}
                     to={`/products/categories/${category.id}`}
                   >
-                    <NavDropdown.Item>{category.category_name}</NavDropdown.Item>
+                    <NavDropdown.Item>
+                      {category.category_name}
+                    </NavDropdown.Item>
                   </LinkContainer>
                 ))}
                 <NavDropdown.Divider />
@@ -87,7 +86,6 @@ function Header() {
                   <NavDropdown.Item href=''>All Catergories</NavDropdown.Item>
                 </LinkContainer>
               </NavDropdown>
-              
             </Nav>
             <SearchBox />
           </Navbar.Collapse>
