@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import FormContainer from '../components/FormContainer';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { listProductDetails } from '../actionCreators/productActionCreators';
+import {
+  editProduct,
+  listProductDetails,
+} from '../actionCreators/productActionCreators';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import { PRODUCT_EDIT_RESET } from '../constants/productConstants';
 
 function ProductEditScreen() {
   const [formData, setFormData] = useState({
     product_name: '',
-    category: '',
+    category: 0,
     price_walmart: 0,
     price_sobeys: 0,
     price_zehrs: 0,
@@ -21,18 +25,67 @@ function ProductEditScreen() {
     description: '',
   });
 
+  const {
+    product_name,
+    category,
+    price_walmart,
+    price_sobeys,
+    price_zehrs,
+    walmart_url,
+    sobeys_url,
+    zehrs_url,
+    description,
+  } = formData;
+
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
+
+  const productEdit = useSelector((state) => state.productEdit);
+  const { success } = productEdit;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const categoryList = useSelector((state) => state.categoryList);
+  const { categories } = categoryList;
 
   const onChangeHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(editProduct(formData, id));
+  };
+
   useEffect(() => {
-    dispatch(listProductDetails(id));
-  }, [dispatch, id]);
+    if (!userInfo || !userInfo.isAdminn) {
+      navigate('/login');
+    }
+    if (success) {
+      dispatch(listProductDetails(id));
+      dispatch({ type: PRODUCT_EDIT_RESET });
+      navigate('/admin/productlist');
+    }
+    if (!product || (product && product.id !== Number(id))) {
+      dispatch(listProductDetails(id));
+    } else {
+      setFormData({
+        product_name: product && product.product_name,
+        category: product && product.category,
+        price_walmart: product && product.price_walmart,
+        price_sobeys: product && product.price_sobeys,
+        price_zehrs: product && product.price_zehrs,
+        walmart_url: product && product.walmart_url,
+        sobeys_url: product && product.sobeys_url,
+        zehrs_url: product && product.zehrs_url,
+        description: product && product.description,
+      });
+    }
+  }, [dispatch, id, success, navigate, product]);
 
   return (
     <div>
@@ -46,13 +99,13 @@ function ProductEditScreen() {
         ) : error ? (
           <Message variant='danger'>{error}</Message>
         ) : (
-          <Form>
+          <Form onSubmit={(e) => submitHandler(e)}>
             <Form.Group className='mb-3' controlId='name'>
               <Form.Label>Product Name</Form.Label>
               <Form.Control
                 type='text'
                 placeholder='Enter Product Name'
-                value={product.product_name}
+                value={product_name}
                 name='product_name'
                 onChange={(e) => onChangeHandler(e)}
               />
@@ -60,12 +113,17 @@ function ProductEditScreen() {
             <Form.Group className='mb-3' controlId='category'>
               <Form.Label>Category</Form.Label>
               <Form.Control
-                type='text'
-                placeholder='Enter Category'
-                value={product.category}
-                name='category'
+                as='select'
                 onChange={(e) => onChangeHandler(e)}
-              />
+                name='category'
+                value={category}
+              >
+                {categories.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.category_name}
+                  </option>
+                ))}
+              </Form.Control>
             </Form.Group>
             <Form.Group className='mb-3' controlId='image'>
               <Form.Label>Image</Form.Label>
@@ -77,7 +135,7 @@ function ProductEditScreen() {
               <Form.Control
                 type='number'
                 placeholder='Enter Price(Walmart)'
-                value={product.price_walmart}
+                value={price_walmart}
                 name='category'
                 step={0.01}
                 precision={2}
@@ -89,7 +147,7 @@ function ProductEditScreen() {
               <Form.Control
                 type='number'
                 placeholder='Enter Price(Sobeys)'
-                value={product.price_sobeys}
+                value={price_sobeys}
                 name='category'
                 step={0.01}
                 precision={2}
@@ -101,7 +159,7 @@ function ProductEditScreen() {
               <Form.Control
                 type='number'
                 placeholder='Enter Price(Zehrs)'
-                value={product.price_zehrs}
+                value={price_zehrs}
                 name='category'
                 step={0.01}
                 precision={2}
@@ -113,7 +171,7 @@ function ProductEditScreen() {
               <Form.Control
                 type='text'
                 placeholder='Enter URL(Walmart)'
-                value={product.walmart_url}
+                value={walmart_url}
                 name='walmart_url'
                 onChange={(e) => onChangeHandler(e)}
               />
@@ -123,7 +181,7 @@ function ProductEditScreen() {
               <Form.Control
                 type='text'
                 placeholder='Enter URL(Sobeys)'
-                value={product.sobeys_url}
+                value={sobeys_url}
                 name='sobeys_url'
                 onChange={(e) => onChangeHandler(e)}
               />
@@ -133,7 +191,7 @@ function ProductEditScreen() {
               <Form.Control
                 type='text'
                 placeholder='Enter URL(Zehrs)'
-                value={product.zehrs_url}
+                value={zehrs_url}
                 name='zehrs_url'
                 onChange={(e) => onChangeHandler(e)}
               />
@@ -145,7 +203,7 @@ function ProductEditScreen() {
                 as='textarea'
                 rows={5}
                 placeholder='Enter Description'
-                value={product.description}
+                value={description}
                 name='description'
                 onChange={(e) => onChangeHandler(e)}
               />

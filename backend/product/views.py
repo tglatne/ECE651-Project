@@ -145,3 +145,28 @@ def addProduct(request):
     product.save()
     serializer = ProductSerializer(product, many=False)
     return Response(serializer.data)
+
+
+@api_view(['PUT'])
+@permission_classes([IsAdminUser])
+def editProduct(request, pk):
+    product = Product.objects.get(id=pk)
+
+    data = request.data
+    if(data['category'].isdigit()):
+        category = Category.objects.get(id=data['category'])
+    else:
+        category = Category.objects.get(category_name=data['category'])
+    product.category = category
+    product.product_name = data['product_name']
+    product.price_walmart = data['price_walmart']
+    product.price_sobeys = data['price_sobeys']
+    product.price_zehrs = data['price_zehrs']
+    product.walmart_url = data['walmart_url']
+    product.sobeys_url = data['sobeys_url']
+    product.zehrs_url = data['zehrs_url']
+    product.description = data['description']
+
+    product.save()
+    serializer = ProductSerializer(product, many=False)
+    return Response(serializer.data)

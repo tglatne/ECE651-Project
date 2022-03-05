@@ -13,6 +13,10 @@ import { PRODUCT_ADD_RESET } from '../constants/productConstants';
 function ProductListScreen() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
 
@@ -31,6 +35,9 @@ function ProductListScreen() {
   }
 
   useEffect(() => {
+    if (!userInfo || !userInfo.isAdminn) {
+      navigate('/login');
+    }
     if (success) {
       dispatch({ type: PRODUCT_ADD_RESET });
     }

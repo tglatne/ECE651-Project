@@ -13,6 +13,7 @@ urlpatterns = [
     path('', views.getRoutes, name='routes'),
     path('products/', views.getProducts, name='products'),
     path('products/add/', views.addProduct, name='add-product'),
+    path('products/edit/<str:pk>', views.editProduct, name='edit-product'),
     path('users/profile/', views.getUserProfile, name='users-profile'),
 
     path('products/<str:pk>', views.getProduct, name='product'),

@@ -34,7 +34,16 @@ function ProductAddScreen() {
   const productAdd = useSelector((state) => state.productAdd);
   const { success } = productAdd;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const categoryList = useSelector((state) => state.categoryList);
+  const { categories } = categoryList;
+
   useEffect(() => {
+    if (!userInfo || !userInfo.isAdminn) {
+      navigate('/login');
+    }
     if (success) {
       navigate('/admin/productlist/');
     }
@@ -61,11 +70,20 @@ function ProductAddScreen() {
           <Form.Group className='mb-3' controlId='category'>
             <Form.Label>Category</Form.Label>
             <Form.Control
-              type='text'
-              placeholder='Enter Category'
-              name='category'
+              as='select'
               onChange={(e) => onChangeHandler(e)}
-            />
+              name='category'
+              defaultValue={'default'}
+            >
+              <option value='default' disabled hidden>
+                Select Category
+              </option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.category_name}>
+                  {category.category_name}
+                </option>
+              ))}
+            </Form.Control>
           </Form.Group>
           <Form.Group className='mb-3' controlId='image'>
             <Form.Label>Image</Form.Label>
