@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Button, Table, Image } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { listProducts } from '../actionCreators/productActionCreators';
+import {
+  deleteProduct,
+  listProducts,
+} from '../actionCreators/productActionCreators';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { LinkContainer } from 'react-router-bootstrap';
 import Pagination from '../components/Pagination';
 import { useSearchParams } from 'react-router-dom';
-import { PRODUCT_ADD_RESET } from '../constants/productConstants';
+import {
+  PRODUCT_ADD_RESET,
+  PRODUCT_DELETE_RESET,
+} from '../constants/productConstants';
 
 function ProductListScreen() {
   const dispatch = useDispatch();
@@ -22,6 +28,9 @@ function ProductListScreen() {
 
   const productAdd = useSelector((state) => state.productAdd);
   const { success } = productAdd;
+
+  const productDelete = useSelector((state) => state.productDelete);
+  const { success: deletSuccess } = productDelete;
 
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(12);
@@ -41,11 +50,14 @@ function ProductListScreen() {
     if (success) {
       dispatch({ type: PRODUCT_ADD_RESET });
     }
+    if (deletSuccess) {
+      dispatch({ type: PRODUCT_DELETE_RESET });
+    }
     dispatch(listProducts(keyword));
-  }, [dispatch, keyword]);
+  }, [dispatch, keyword, navigate, deletSuccess, success, userInfo]);
 
   const deleteHandler = (id) => {
-    console.log('Deleted!');
+    dispatch(deleteProduct(id));
   };
 
   const addProductHandler = () => {

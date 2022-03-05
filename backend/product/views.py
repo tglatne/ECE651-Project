@@ -170,3 +170,12 @@ def editProduct(request, pk):
     product.save()
     serializer = ProductSerializer(product, many=False)
     return Response(serializer.data)
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAdminUser])
+def deleteProduct(request, pk):
+    product = Product.objects.get(id=pk)
+    product.delete()
+
+    return Response('Product was deleted!')
