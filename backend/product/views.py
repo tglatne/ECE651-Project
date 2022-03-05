@@ -1,3 +1,4 @@
+from email import message
 from .serializers import ProductSerializer, CategorySerializer, UserSerializer, UserSerializerWithToken
 from .models import Product, Category
 from django.contrib.auth.models import User
@@ -16,6 +17,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
+
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
@@ -24,7 +26,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
             data[k] = v
 
         return data
-
 
 
 class MyTokenObtainPairView(TokenObtainPairView):
@@ -36,6 +37,7 @@ def getRoutes(request):
     routes = ['sagar/potnis']
     return Response(routes)
 
+
 @api_view(['GET'])
 def getProducts(request):
     query = request.query_params.get('keyword')
@@ -45,62 +47,63 @@ def getProducts(request):
 
     products = Product.objects.filter(product_name__icontains=query)
     serializer = ProductSerializer(products, many=True)
-    return Response(serializer.data )
-
-
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
 def getProduct(request, pk):
-    product = Product.objects.get(pk = pk)
-    serializer = ProductSerializer(product, many= False)
+    product = Product.objects.get(pk=pk)
+    serializer = ProductSerializer(product, many=False)
     return Response(serializer.data)
 
 
 @api_view(['GET'])
 def getCategories(request):
     category = Category.objects.all()
-    serializer = CategorySerializer(category, many = True)
+    serializer = CategorySerializer(category, many=True)
     return Response(serializer.data)
+
 
 @api_view(['GET'])
 def getCategory(request, pk):
-    category = Product.objects.filter(category_id = pk)
-    serializer = ProductSerializer(category, many = True)
+    category = Product.objects.filter(category_id=pk)
+    serializer = ProductSerializer(category, many=True)
     return Response(serializer.data)
-
-
 
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getUserProfile(request):
     user = request.user
-    serializer = UserSerializer(user, many = False)
+    serializer = UserSerializer(user, many=False)
     return Response(serializer.data)
+
 
 @api_view(['GET'])
 @permission_classes([IsAdminUser])
 def getUsers(request):
     users = User.objects.all()
     serializer = UserSerializer(users, many=True)
-    return Response(serializer.data )
+    return Response(serializer.data)
 
 
 @api_view(['POST'])
 def registerUser(request):
     try:
-        data =request.data
+        data = request.data
         user = User.objects.create(
-            first_name = data['name'], # data['name'] will come from the frontend
-            username = data['email'],
-            email = data['email'],
-            password = make_password(data['password']) #it will hash the password
+            # data['name'] will come from the frontend
+            first_name=data['name'],
+            username=data['email'],
+            email=data['email'],
+            # it will hash the password
+            password=make_password(data['password'])
         )
-        serializer = UserSerializerWithToken(user , many= False)
+        serializer = UserSerializerWithToken(user, many=False)
         return Response(serializer.data)
-    except: #EXCEPT BLock when new user registers with same credentials
-        message = {'detail' : 'User with this email already exists. Try another one'}
+    except:  # EXCEPT BLock when new user registers with same credentials
+        message = {
+            'detail': 'User with this email already exists. Try another one'}
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
 # class ProductView(viewsets.ModelViewSet):
 #     options = webdriver.ChromeOptions()
@@ -121,3 +124,24 @@ def registerUser(request):
 #     # reg.save()
 #     serializer_class = ProductSerializer
 #     queryset = Product.objects.all()
+
+
+@api_view(['POST'])
+@permission_classes([IsAdminUser])
+def addProduct(request):
+    data = request.data
+    category = Category.objects.get(category_name=data['category'])
+    product = Product.objects.create(
+        category=category,
+        product_name=data['product_name'],
+        price_walmart=data['price_walmart'],
+        price_sobeys=data['price_sobeys'],
+        price_zehrs=data['price_zehrs'],
+        walmart_url=data['walmart_url'],
+        sobeys_url=data['sobeys_url'],
+        zehrs_url=data['zehrs_url'],
+        description=data['description'],
+    )
+    product.save()
+    serializer = ProductSerializer(product, many=False)
+    return Response(serializer.data)
