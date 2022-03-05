@@ -8,12 +8,16 @@ import Message from '../components/Message';
 import { LinkContainer } from 'react-router-bootstrap';
 import Pagination from '../components/Pagination';
 import { useSearchParams } from 'react-router-dom';
+import { PRODUCT_ADD_RESET } from '../constants/productConstants';
 
 function ProductListScreen() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
+
+  const productAdd = useSelector((state) => state.productAdd);
+  const { success } = productAdd;
 
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(12);
@@ -27,6 +31,9 @@ function ProductListScreen() {
   }
 
   useEffect(() => {
+    if (success) {
+      dispatch({ type: PRODUCT_ADD_RESET });
+    }
     dispatch(listProducts(keyword));
   }, [dispatch, keyword]);
 

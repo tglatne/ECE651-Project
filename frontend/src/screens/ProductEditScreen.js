@@ -79,6 +79,8 @@ function ProductEditScreen() {
                 placeholder='Enter Price(Walmart)'
                 value={product.price_walmart}
                 name='category'
+                step={0.01}
+                precision={2}
                 onChange={(e) => onChangeHandler(e)}
               />
             </Form.Group>
@@ -89,6 +91,8 @@ function ProductEditScreen() {
                 placeholder='Enter Price(Sobeys)'
                 value={product.price_sobeys}
                 name='category'
+                step={0.01}
+                precision={2}
                 onChange={(e) => onChangeHandler(e)}
               />
             </Form.Group>
@@ -99,6 +103,8 @@ function ProductEditScreen() {
                 placeholder='Enter Price(Zehrs)'
                 value={product.price_zehrs}
                 name='category'
+                step={0.01}
+                precision={2}
                 onChange={(e) => onChangeHandler(e)}
               />
             </Form.Group>
