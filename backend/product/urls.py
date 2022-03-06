@@ -18,7 +18,11 @@ urlpatterns = [
 
     path('products/<str:pk>', views.getProduct, name='product'),
     path('categories/', views.getCategories, name='categories'),
-    path('categories/<str:pk>', views.getCategory, name='cateogry')
+    path('categories/<str:pk>', views.getCategory, name='cateogry'),
+
+    path('orders/add/', views.addCartItems, name='orders-add'),
+
+
 
     # path('', include(router.urls)),
 

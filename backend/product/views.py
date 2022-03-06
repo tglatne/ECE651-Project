@@ -1,6 +1,6 @@
 from email import message
-from .serializers import ProductSerializer, CategorySerializer, UserSerializer, UserSerializerWithToken
-from .models import Product, Category
+from .serializers import ProductSerializer, CategorySerializer, UserSerializer, UserSerializerWithToken, CartSerializer
+from .models import Product, Category, Cart, CartItem
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
@@ -105,6 +105,8 @@ def registerUser(request):
         message = {
             'detail': 'User with this email already exists. Try another one'}
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
+
+
 # class ProductView(viewsets.ModelViewSet):
 #     options = webdriver.ChromeOptions()
 #     options.add_argument("--enable-javascript")
@@ -153,7 +155,7 @@ def editProduct(request, pk):
     product = Product.objects.get(id=pk)
 
     data = request.data
-    if(data['category'].isdigit()):
+    if (data['category'].isdigit()):
         category = Category.objects.get(id=data['category'])
     else:
         category = Category.objects.get(category_name=data['category'])
@@ -170,3 +172,42 @@ def editProduct(request, pk):
     product.save()
     serializer = ProductSerializer(product, many=False)
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def addCartItems(request):
+    user = request.user
+    data = request.data
+
+    cartItems = data['cartItems']
+
+
+    if cartItems and len(cartItems) == 0:
+        return Response({'detail': 'No Order Items'}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        # Create order
+        order = Cart.objects.create(
+            user=user,
+            total_price_walmart=data['totalPrice_walmart'],
+            total_price_sobeys=data['totalPrice_sobeys'],
+            total_price_zehrs=data['totalPrice_zehrs'],
+        )
+        # Create order items and set order to orderItem relationship
+        for i in cartItems:
+            product = Product.objects.get(pk=i['product_id'])
+
+            item = CartItem.objects.create(
+                product=product,
+                cart=order,
+                name=product.product_name,
+                quantity=i['qty'],
+                price_walmart=i['price_walmart'],
+                price_sobeys=i['price_sobeys'],
+                price_zehrs=i['price_zehrs'],
+                img=i['image'],
+            )
+            item.save()
+
+        serializer = CartSerializer(order, many=False)
+        return Response(serializer.data)
