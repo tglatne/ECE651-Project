@@ -21,7 +21,10 @@ urlpatterns = [
     path('categories/<str:pk>', views.getCategory, name='cateogry'),
 
     path('orders/add/', views.addCartItems, name='orders-add'),
+    path('orders/myorders/', views.getMyOrders, name='myorders'),
     path('orders/<str:pk>/', views.getOrderById, name='user-order'),
+    
+
 
 
 

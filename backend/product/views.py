@@ -229,3 +229,12 @@ def getOrderById(request, pk):
                      status=status.HTTP_400_BAD_REQUEST)
     except:
         return Response({'detail': 'Shopping List does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getMyOrders(request):
+    user = request.user
+    orders = user.cart_set.all()
+    print(orders)
+    serializer = CartSerializer(orders, many=True)
+    return Response(serializer.data)

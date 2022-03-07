@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
+import { Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderDetails } from "../actionCreators/orderActionCreators";
@@ -12,9 +12,8 @@ function OrderScreen() {
   const navigate = useNavigate();
 
   const orderDetails = useSelector((state) => state.orderDetails);
- 
+
   const { order, error, loading } = orderDetails;
-  console.log(order)
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -31,9 +30,6 @@ function OrderScreen() {
       .toFixed(2);
   }
 
-  console.log(order.totalPrice_walmart)
-
-
   useEffect(() => {
     if (!userInfo) {
       navigate("/login");
@@ -41,15 +37,11 @@ function OrderScreen() {
     dispatch(getOrderDetails(id));
   }, [dispatch, id]);
 
-  console.log(order)
-
-
   return loading ? (
     <Loader />
   ) : error ? (
     <Message variant="danger">{error}</Message>
   ) : (
-
     <div>
       <h1>Shopping List: {order.id}</h1>
       <Row>
@@ -82,19 +74,21 @@ function OrderScreen() {
                           </Link>
                         </Col>
                         <Col md={4}>
-                          <strong>price_walmart</strong>
-                          {item.quantity} X ${item.price_walmart} = $
-                          {(item.quantity * item.price_walmart).toFixed(2)}
-                        </Col>
-                        <Col md={4}>
-                          <strong>price_sobeys</strong>
-                          {item.quantity} X ${item.price_sobeys} = $
-                          {(item.quantity * item.price_sobeys).toFixed(2)}
-                        </Col>
-                        <Col md={4}>
+                          <Row>
+                            <strong>price_walmart</strong>
+                            {item.quantity} X ${item.price_walmart} = $
+                            {(item.quantity * item.price_walmart).toFixed(2)}
+                          </Row>
+                          <Row>
+                            <strong>price_sobeys</strong>
+                            {item.quantity} X ${item.price_sobeys} = $
+                            {(item.quantity * item.price_sobeys).toFixed(2)}
+                          </Row>
+                          <Row>
                           <strong>price_zehrs</strong>
                           {item.quantity} X ${item.price_zehrs} = $
                           {(item.quantity * item.price_zehrs).toFixed(2)}
+                          </Row>
                         </Col>
                       </Row>
                     </ListGroup.Item>
