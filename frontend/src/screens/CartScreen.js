@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useParams,
+  useSearchParams,
+  useNavigate,
+} from "react-router-dom";
 import {
   Row,
   Col,
@@ -15,13 +20,15 @@ import {
   addToCart,
   removeFromCart,
 } from "../actionCreators/cartActionCreators";
-import { createOrder } from '../actionCreators/orderActionCreators';
+import { createOrder } from "../actionCreators/orderActionCreators";
 import Message from "../components/Message";
+import { ORDER_ADD_RESET } from "../constants/orderConstants";
 
 function CartScreen() {
   const { id } = useParams();
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
@@ -37,10 +44,15 @@ function CartScreen() {
     qty = 1;
   }
 
-  cart.totalPrice_walmart = cart.cartItems.reduce((acc, item) => acc + item.price_walmart * item.qty, 0).toFixed(2)
-  cart.totalPrice_sobeys = cart.cartItems.reduce((acc, item) => acc + item.price_sobeys * item.qty, 0).toFixed(2)
-  cart.totalPrice_zehrs = cart.cartItems.reduce((acc, item) => acc + item.price_zehrs * item.qty, 0).toFixed(2)
-
+  cart.totalPrice_walmart = cart.cartItems
+    .reduce((acc, item) => acc + item.price_walmart * item.qty, 0)
+    .toFixed(2);
+  cart.totalPrice_sobeys = cart.cartItems
+    .reduce((acc, item) => acc + item.price_sobeys * item.qty, 0)
+    .toFixed(2);
+  cart.totalPrice_zehrs = cart.cartItems
+    .reduce((acc, item) => acc + item.price_zehrs * item.qty, 0)
+    .toFixed(2);
 
   useEffect(() => {
     if (id !== undefined) {
@@ -48,19 +60,32 @@ function CartScreen() {
     }
   }, [dispatch, id, qty]);
 
+  useEffect(() => {
+    if (success) {
+      navigate(`/order/${order.id}`);
+      dispatch({ type: ORDER_ADD_RESET });
+    }
+  }, [success, navigate]);
+
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
   };
 
-  console.log(cart.cartItems);
   const saveOrder = () => {
-    dispatch(createOrder({
+    dispatch(
+      createOrder({
         cartItems: cart.cartItems,
         totalPrice_walmart: cart.totalPrice_walmart,
         totalPrice_sobeys: cart.totalPrice_sobeys,
-        totalPrice_zehrs: cart.totalPrice_zehrs
-    }))
-}
+        totalPrice_zehrs: cart.totalPrice_zehrs,
+      })
+    );
+    // if (success) {
+    //   dispatch({ type: ORDER_CREATE_RESET });
+    //   navigate(`/order/${order.id}`);
+    // }
+  };
+
 
   return (
     <Row>
@@ -72,8 +97,11 @@ function CartScreen() {
           </Message>
         ) : (
           <ListGroup variant="flush">
+            <ListGroup.Item>
+              {error && <Message variant="danger">{error}</Message>}
+            </ListGroup.Item>
             {cartItems.map((item) => (
-              <ListGroupItem key={item.product_id}>
+              <ListGroup.Item key={item.product_id}>
                 <Row>
                   <Col md={2}>
                     <Image src={item.image} alt={item.name} fluid rounded />
@@ -157,7 +185,7 @@ function CartScreen() {
                     </Button>
                   </Col>
                 </Row>
-              </ListGroupItem>
+              </ListGroup.Item>
             ))}
           </ListGroup>
         )}

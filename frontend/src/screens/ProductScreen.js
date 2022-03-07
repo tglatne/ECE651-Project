@@ -38,7 +38,6 @@ function ProductScreen() {
   };
 
   const addToCartHandler = () => {
-    console.log(id)
     navigate(`/cart/${id}?qty=${qty}`)
   }
 

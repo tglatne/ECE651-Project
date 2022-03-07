@@ -13,7 +13,7 @@ import {
 } from './reducers/categoryReducers';
 import { cartReducer } from './reducers/cartReducers';
 import { userLoginReducer, userRegisterReducer } from './reducers/userReducers';
-import { orderAddReducer } from './reducers/orderReducers';
+import { orderAddReducer, orderDetialsReducer } from './reducers/orderReducers';
 // import { pageReducer } from './reducers/pageReducer';
 
 const reducer = combineReducers({
@@ -27,6 +27,7 @@ const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   orderAdd: orderAddReducer,
+  orderDetails: orderDetialsReducer
   // page: pageReducer
 });
 
