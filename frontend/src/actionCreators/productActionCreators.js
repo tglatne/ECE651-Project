@@ -26,7 +26,6 @@ export const listProducts =
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
 
-      // const { data } = await axios.get(`https://fakestoreapi.com/products`);
       const { data } = await axios.get(`${URL}/api/products/`, {
         params: { keyword: keyword },
       });

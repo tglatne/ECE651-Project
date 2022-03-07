@@ -46,8 +46,8 @@ function Header() {
                   id='basic-nav-dropdown'
                   menuVariant='dark'
                 >
-                  <LinkContainer to='/users/profile/'>
-                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  <LinkContainer to='/profile/'>
+                    <NavDropdown.Item>My Shopping Lists</NavDropdown.Item>
                   </LinkContainer>
 
                   <NavDropdown.Item className='logout' onClick={logoutHandler}>

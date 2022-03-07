@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product, Category
+from .models import Product, Category, CartItem, Cart
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -24,7 +24,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id',  'username', 'email', 'namee', 'isAdminn']
+        fields = ['id', 'username', 'email', 'namee', 'isAdminn']
 
     def get_isAdminn(self, obj):
         return obj.is_staff
@@ -45,8 +45,33 @@ class UserSerializerWithToken(UserSerializer):
     class Meta:
         model = User
         # we inherit all the fields from the 'UserSerializer' class like namee and isAdminn
-        fields = ['id',  'username', 'email', 'namee', 'isAdminn', 'tokenn']
+        fields = ['id', 'username', 'email', 'namee', 'isAdminn', 'tokenn']
 
     def get_tokenn(self, obj):
         token = RefreshToken.for_user(obj)
         return str(token.access_token)
+
+
+class CartItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CartItem
+        fields = '__all__'
+
+
+class CartSerializer(serializers.ModelSerializer):
+    cartItems = serializers.SerializerMethodField(read_only=True)
+    user = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = Cart
+        fields = '__all__'
+
+    def get_cartItems(self, obj):
+        items = obj.cartitem_set.all()
+        serializer = CartItemSerializer(items, many=True)
+        return serializer.data
+
+    def get_user(self, obj):
+        user = obj.user
+        serializer = UserSerializer(user, many=False)
+        return serializer.data
