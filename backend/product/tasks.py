@@ -33,7 +33,7 @@ def my_test(self):
             elif 'text__Text-sc-1ddlex6-0 hgqPwo' in soup_str or 'text__Text-sc-1ddlex6-0 offer__Offer-sc-1atj9an-0 hgqPwo eZJjBz' in soup_str:
                 print("found class in sobeys")
                 flag = False
-            elif 'price__value selling-price-list__item__price selling-price-list__item__price--now-price__value' in soup_str:
+            elif 'price__value selling-price-list__item__price selling-price-list__item__price--now-price__value'   in soup_str or 'price__value selling-price-list__item__price selling-price-list__item__price--now-price selling-price-list__item__price--__value' in soup_str:
                 print("found class in zehrs")
                 flag = False
             else:
