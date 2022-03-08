@@ -10,6 +10,7 @@ import time
 def my_test(self):
     flag = False
     products = Product.objects.all()
+    count_error = 0
     for product in products.iterator():
         class_walmart = 'css-2vqe5n esdkp3p0'
         class_sobeys = 'text__Text-sc-1ddlex6-0 hgqPwo'
@@ -64,7 +65,8 @@ def my_test(self):
                     Product.objects.filter(product_name = product.product_name).update(price_sobeys = price)
 
             else:
-                print("some ERRRRRRRRRRRRRRRRRRRRRRRORRRRR")
+                count_error+=1
+                print("some ERRRRRRRRRRRRRRRRRRRRRRRORRRRR :" , count_error)
                 driver.quit()
                 continue
 
