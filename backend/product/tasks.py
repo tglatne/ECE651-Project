@@ -43,6 +43,7 @@ def my_test(self):
                 if 'text__Text-sc-1ddlex6-0 offer__Offer-sc-1atj9an-0 hgqPwo eZJjBz' in soup_str:
                     url_class_dict[product.sobeys_url] = 'text__Text-sc-1ddlex6-0 offer__Offer-sc-1atj9an-0 hgqPwo eZJjBz'
                 if 'price__value selling-price-list__item__price selling-price-list__item__price--now-price selling-price-list__item__price--__value' in soup_str:
+                    print("found in zehrs")
                     url_class_dict[product.zehrs_url] = 'price__value selling-price-list__item__price selling-price-list__item__price--now-price selling-price-list__item__price--__value'
                 soup = soup.find('span', class_= url_class_dict[key])
                 price = soup.text
