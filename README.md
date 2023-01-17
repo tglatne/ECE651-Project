@@ -1,1 +1,1 @@
-# ECE651-Project
+# ECE651-Foundations of Software Engineering
